@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_youtube/core/notifiers.dart';
 import 'package:flutter_youtube/pages/home_page.dart';
 import 'package:flutter_youtube/widget/widget_tree.dart';
 
@@ -12,13 +13,18 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-          useMaterial3: true
-          ),
-        home: const WidgetTree());
+    return ValueListenableBuilder(
+        valueListenable: isDarkModeNotifier,
+        builder: (context, isDark, child) {
+          return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: 'Flutter Demo',
+              theme: ThemeData(
+                brightness: isDark?  Brightness.dark : Brightness.light  ,
+                primarySwatch: Colors.blue, 
+                useMaterial3: true
+                ),
+              home: const WidgetTree());
+        });
   }
 }
